@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-div">
+
+        <div class="container">
+            <input type="text" placeholder="Enter Here" id="qrtext">
+            <div id="qr-img-div">
+                <img id="qr-img">
+            </div>
+            <button id="gen-QR" onclick="genQR()">Generate QR</button>
+            <button id="down-QR" onclick="downQR()">Download QR</button>
+        </div>
+
+    </div>    
+
+    <script>        
+
+        function genQR() {
+
+            let qrimgdiv = document.getElementById("qr-img-div");
+            let qrImg = document.getElementById("qr-img");
+            let qrtext = document.getElementById("qrtext").value;
+            let genQR = document.getElementById("gen-QR");
+
+            if(qrtext.length > 0){
+                
+                qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrtext;
+                qrimgdiv.classList.add("display-qr-img-div");
+                setTimeout(() => {
+                    qrImg.classList.add("style-qr-img");
+                } , 500);
+
+            }
+
+        };
+
+        function downQR() {
+
+            let qrImg = document.getElementById("qr-img").src;
+            const a = document.createElement('a');
+            a.href = qrImg;
+            a.download = 'downloaded-image.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+        };
+
+    </script>
+
+</body>
+</html>
